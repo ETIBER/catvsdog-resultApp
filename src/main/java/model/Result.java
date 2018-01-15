@@ -15,6 +15,12 @@ public class Result {
     private final Double cat;
     private final Double dog;
 
+    public Result(double cat, double dog) {
+        this.cat = cat;
+        this.dog = dog;
+        this.createTime = LocalDateTime.now();
+    }
+
     public Result(String jsonString) throws JsonParsingException {
         JsonReader jsonReader = Json.createReader(new StringReader(jsonString));
         JsonObject jsonObject = jsonReader.readObject();
@@ -23,6 +29,7 @@ public class Result {
 
         this.createTime = LocalDateTime.now();
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -37,6 +44,15 @@ public class Result {
     public int hashCode() {
 
         return Objects.hash(cat, dog);
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "createTime=" + createTime +
+                ", cat=" + cat +
+                ", dog=" + dog +
+                '}';
     }
 
     // GETTER

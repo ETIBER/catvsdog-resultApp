@@ -1,12 +1,15 @@
-package test;
+package model;
 
 import model.Result;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.Mock;
 
 import javax.json.stream.JsonParsingException;
 import java.time.LocalDateTime;
+
+import static org.mockito.Mockito.*;
 
 public class ResultTest {
 
@@ -46,8 +49,5 @@ public class ResultTest {
         // WHEN
         Result result= new Result(jsonString);
         // THEN
-
     }
-
-
 }

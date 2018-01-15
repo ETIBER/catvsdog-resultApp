@@ -14,7 +14,7 @@ public class ApiConnectionService {
 
     public ApiConnectionService() {
         try {
-            this.url = new URL("http://localhost:4000/api/v1/getResult");
+            this.url = new URL("http://localhost:4000/api/v1/results");
             this.httpURLConnection = (HttpURLConnection) url.openConnection();
         } catch (IOException e) {
             e.printStackTrace();
