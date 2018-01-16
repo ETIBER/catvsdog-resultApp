@@ -5,6 +5,7 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.stream.JsonParsingException;
 import java.io.StringReader;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -16,9 +17,7 @@ public class Result {
     private final Double dog;
 
     public Result(double cat, double dog) {
-        this.cat = cat;
-        this.dog = dog;
-        this.createTime = LocalDateTime.now();
+        this(cat,dog,LocalDateTime.now());
     }
 
     public Result(String jsonString) throws JsonParsingException {
@@ -26,10 +25,14 @@ public class Result {
         JsonObject jsonObject = jsonReader.readObject();
         this.cat = jsonObject.getJsonNumber("cat").doubleValue();
         this.dog = jsonObject.getJsonNumber("dog").doubleValue();
-
         this.createTime = LocalDateTime.now();
     }
 
+    public Result( Double cat, Double dog ,LocalDateTime createTime) {
+        this.createTime = createTime;
+        this.cat = cat;
+        this.dog = dog;
+    }
 
     @Override
     public boolean equals(Object o) {
