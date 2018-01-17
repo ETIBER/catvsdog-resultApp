@@ -1,15 +1,17 @@
 package scheduler;
 
-import model.InsertionFailException;
-import model.Result;
-import model.ResultDAO;
+import Tools.IOUtilsTools;
+import factories.URLConnectionFactory;
+import model.result.Result;
+import model.result.ResultDAO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import services.ApiConnectionService;
+import services.ApiConnectionService.ApiConnectionServiceImpl;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -23,13 +25,13 @@ public class ImportResultSchedulerImplTest {
     @Mock
     private ScheduledExecutorService scheduledExecutorServiceMock;
     @Mock
-    private ApiConnectionService apiConnectionServiceMock;
+    private ApiConnectionServiceImpl apiConnectionServiceImplMock;
     @Mock
     private ResultDAO resultDAOMock;
 
     @Before
     public void SetUp() {
-        importResultSchedulerImpl = new ImportResultSchedulerImpl(scheduledExecutorServiceMock, apiConnectionServiceMock,resultDAOMock);
+        importResultSchedulerImpl = new ImportResultSchedulerImpl(scheduledExecutorServiceMock, apiConnectionServiceImplMock,resultDAOMock);
     }
 
     @Test
@@ -45,22 +47,25 @@ public class ImportResultSchedulerImplTest {
     }
 
     @Test
-    public void runCallGetResultInApi() {
+    public void runCallGetResultInApi() throws IOException {
         // GIVEN
-        when(apiConnectionServiceMock.getResult()).thenReturn(new Result(1,0));
+        URLConnectionFactory urlConnectionFactory = new URLConnectionFactory();
+        IOUtilsTools ioUtilsTools = new IOUtilsTools();
+        when(apiConnectionServiceImplMock.getResult(any(), any())).thenReturn(new Result(1,0));
 
         // WHEN
         importResultSchedulerImpl.run();
 
         // THEN
-        verify(apiConnectionServiceMock).getResult();
+        verify(apiConnectionServiceImplMock).getResult(any(URLConnectionFactory.class), any(IOUtilsTools.class));
     }
 
     @Test
-    public void runCorrectlyCallCreateWithResultFromApi() throws SQLException, InsertionFailException {
+    public void runCorrectlyCallCreateWithResultFromApi() throws SQLException, IOException {
         // GIVEN
         Result expectedResult = new Result(1, 0);
-        when(apiConnectionServiceMock.getResult()).thenReturn(expectedResult);
+        when(apiConnectionServiceImplMock.getResult(any(), any()))
+                .thenReturn(expectedResult);
 
         // WHEN
         importResultSchedulerImpl.run();

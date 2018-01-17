@@ -1,11 +1,10 @@
-package model;
+package model.result;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.stream.JsonParsingException;
 import java.io.StringReader;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -17,7 +16,7 @@ public class Result {
     private final Double dog;
 
     public Result(double cat, double dog) {
-        this(cat,dog,LocalDateTime.now());
+        this(cat, dog, LocalDateTime.now());
     }
 
     public Result(String jsonString) throws JsonParsingException {
@@ -28,7 +27,7 @@ public class Result {
         this.createTime = LocalDateTime.now();
     }
 
-    public Result( Double cat, Double dog ,LocalDateTime createTime) {
+    public Result(Double cat, Double dog, LocalDateTime createTime) {
         this.createTime = createTime;
         this.cat = cat;
         this.dog = dog;
@@ -40,7 +39,8 @@ public class Result {
         if (o == null || getClass() != o.getClass()) return false;
         Result result = (Result) o;
         return Objects.equals(cat, result.cat) &&
-                Objects.equals(dog, result.dog);
+                Objects.equals(dog, result.dog) &&
+                Objects.equals(createTime, result.createTime);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Result {
 
     @Override
     public String toString() {
-        return "Result{" +
+        return "result{" +
                 "createTime=" + createTime +
                 ", cat=" + cat +
                 ", dog=" + dog +

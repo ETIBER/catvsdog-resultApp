@@ -1,6 +1,3 @@
-import scheduler.ImportResultScheduler;
-import scheduler.ImportResultSchedulerImpl;
-
 import java.sql.SQLException;
 
 public class Main {
