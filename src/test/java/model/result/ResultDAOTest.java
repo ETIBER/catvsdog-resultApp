@@ -6,6 +6,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -24,10 +25,11 @@ public class ResultDAOTest {
     private static final String SELECT_BY_DATE_SQL = "SELECT * FROM result WHERE createTime BETWEEN ? AND ? " +
             "ORDER BY createTime DESC LIMIT 1";
 
-    private ResultDAO resultDAO;
-
     @Mock
     private Connection connectionMock;
+    @InjectMocks
+    private ResultDAOImpl resultDAO;
+
     @Mock
     private PreparedStatement preparedStatementInsertTable;
     @Mock
@@ -40,7 +42,6 @@ public class ResultDAOTest {
 
     @Before
     public void SetUp() throws SQLException {
-        resultDAO = new ResultDAOImpl(connectionMock);
     }
 
     @Test

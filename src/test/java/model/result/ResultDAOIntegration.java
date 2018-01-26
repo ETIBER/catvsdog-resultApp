@@ -2,6 +2,8 @@ package model.result;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import services.DatabaseConnectionService.DatabaseConnectionServiceImpl;
 
 import java.sql.*;
@@ -12,9 +14,11 @@ import static org.junit.Assert.assertTrue;
 
 public class ResultDAOIntegration {
 
-
-    private DatabaseConnectionServiceImpl databaseConnectionServiceImpl;
+    @Mock
     private Connection connection;
+    @InjectMocks
+    private DatabaseConnectionServiceImpl databaseConnectionServiceImpl;
+
     @Before
     public void setUp() throws SQLException {
         final String dropTableSQL = "DROP TABLE IF EXISTS result";
@@ -32,7 +36,7 @@ public class ResultDAOIntegration {
     public void createAddALineInTheDatabaseCorrectlyWithInteger() throws SQLException {
         //GIVEN
         Result result = new Result(1D,0D,LocalDateTime.now());
-        ResultDAO resultDAO = new ResultDAOImpl(connection);
+        ResultDAO resultDAO = new ResultDAOImpl();
 
         //WHEN
         resultDAO.create(result);
@@ -54,7 +58,7 @@ public class ResultDAOIntegration {
     public void createAddALineInTheDatabaseCorrectlyWithFloat() throws SQLException {
         //GIVEN
         Result expectedResult = new Result(0.4,0.6);
-        ResultDAO resultDAO = new ResultDAOImpl(connection);
+        ResultDAO resultDAO = new ResultDAOImpl();
 
         //WHEN
         resultDAO.create(expectedResult);
@@ -76,7 +80,7 @@ public class ResultDAOIntegration {
     public void findClosestDateGetALineOfTheExactDate() throws SQLException {
         //GIVEN
         Result expectedResult = new Result(0.6,0.4, LocalDateTime.now());
-        ResultDAO resultDAO = new ResultDAOImpl(connection);
+        ResultDAO resultDAO = new ResultDAOImpl();
         final String INSERT_TABLE_SQL = "INSERT INTO result (cat,dog,createTime)\n VALUES (?, ?, ?);";
         PreparedStatement insertPreparedStatement = this.connection.prepareStatement(INSERT_TABLE_SQL);
         insertPreparedStatement.setDouble(1,expectedResult.getCat());
@@ -97,7 +101,7 @@ public class ResultDAOIntegration {
     public void CreateAndFindClosestDateWorkTogether() throws SQLException {
         // GIVEN
         Result expectedResult = new Result(0.6,0.4, LocalDateTime.now());
-        ResultDAO resultDAO = new ResultDAOImpl(connection);
+        ResultDAO resultDAO = new ResultDAOImpl();
 
         // WHEN
         resultDAO.create(expectedResult);
@@ -113,7 +117,7 @@ public class ResultDAOIntegration {
     public void CreateAndFindByDateWorkTogether() throws SQLException {
         // GIVEN
         Result expectedResult = new Result(0.6,0.4, LocalDateTime.now());
-        ResultDAO resultDAO = new ResultDAOImpl(connection);
+        ResultDAO resultDAO = new ResultDAOImpl();
 
         // WHEN
         resultDAO.create(expectedResult);

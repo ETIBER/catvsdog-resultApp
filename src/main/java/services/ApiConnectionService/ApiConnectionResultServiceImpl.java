@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
-public class ApiConnectionServiceImpl implements ApiConnectionService {
+public class ApiConnectionResultServiceImpl implements ApiConnectionResultService {
 
     private static final String API_RESULT_HOST = System.getProperty("API_RESULT_HOST", "localhost");
     private static final Integer API_RESULT_PORT =
@@ -16,13 +16,21 @@ public class ApiConnectionServiceImpl implements ApiConnectionService {
     private static final String PROTOCOL = "http";
     private static final String RESULT_FILE = "/api/v1/percentage-votes";
 
+    private URLConnectionFactory urlConnectionFactory;
+    private IOUtilsTools ioUtilsTools;
 
-    public Result getResult(URLConnectionFactory urlFactory, IOUtilsTools ioUtilsToolsMock) throws IOException {
+    public ApiConnectionResultServiceImpl() {
+        this.urlConnectionFactory = new URLConnectionFactory();
+        this.ioUtilsTools = new IOUtilsTools();
+    }
+
+
+    public Result getResult() throws IOException {
         HttpURLConnection httpURLConnection =
-                (HttpURLConnection) urlFactory.getURLConnection(PROTOCOL, API_RESULT_HOST, API_RESULT_PORT, RESULT_FILE);
+                (HttpURLConnection) urlConnectionFactory.getURLConnection(PROTOCOL, API_RESULT_HOST, API_RESULT_PORT, RESULT_FILE);
         httpURLConnection.setRequestMethod("GET");
         InputStream inputStream = httpURLConnection.getInputStream();
-        Result result = new Result(ioUtilsToolsMock.inputStreamToString(inputStream));
+        Result result = new Result(ioUtilsTools.inputStreamToString(inputStream));
         inputStream.close();
         return result;
     }

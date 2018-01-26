@@ -6,6 +6,6 @@ import model.result.Result;
 
 import java.io.IOException;
 
-public interface ApiConnectionService {
-    Result getResult(URLConnectionFactory urlFactoryMock, IOUtilsTools ioUtilsToolsMock) throws IOException;
+public interface ApiConnectionResultService {
+    Result getResult() throws IOException;
 }

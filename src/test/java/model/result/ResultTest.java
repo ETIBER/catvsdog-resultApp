@@ -45,4 +45,26 @@ public class ResultTest {
         Result result= new Result(jsonString);
         // THEN
     }
+
+    @Test
+    public void toJSONReturnTheJSONValueOfTheClassWithCat1AndDod0() {
+        // GIVEN
+        String expectedJsonString = "{\"cat\":1.0 ,\"dog\":0.0}";
+        Result result = new Result(1,0);
+        // WHEN
+        String jsonString = result.toJSON();
+        // THEN
+        Assert.assertEquals(expectedJsonString,jsonString);
+    }
+
+    @Test
+    public void toJSONReturnTheJSONValueOfTheClassWithCat0AndDod1() {
+        // GIVEN
+        String expectedJsonString = "{\"cat\":0.0 ,\"dog\":1.0}";
+        Result result = new Result(0,1);
+        // WHEN
+        String jsonString = result.toJSON();
+        // THEN
+        Assert.assertEquals(expectedJsonString,jsonString);
+    }
 }

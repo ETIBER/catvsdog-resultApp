@@ -1,5 +1,8 @@
 package model.result;
 
+import services.DatabaseConnectionService.DatabaseConnectionService;
+import services.DatabaseConnectionService.DatabaseConnectionServiceImpl;
+
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,10 +16,10 @@ public class ResultDAOImpl implements ResultDAO {
     private static final String SELECT_BY_DATE_SQL = "SELECT * FROM result WHERE createTime BETWEEN ? AND ? " +
             "ORDER BY createTime DESC LIMIT 1";
 
-    private Connection connection = null;
+    private Connection connection;
 
-    public ResultDAOImpl(Connection connection) {
-        this.connection = connection;
+    public ResultDAOImpl() throws SQLException {
+        this.connection = new DatabaseConnectionServiceImpl().getConnection();
     }
 
     public void create(Result result) throws SQLException {

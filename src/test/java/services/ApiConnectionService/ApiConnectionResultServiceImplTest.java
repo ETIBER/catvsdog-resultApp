@@ -7,6 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -17,7 +18,7 @@ import java.net.HttpURLConnection;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ApiConnectionServiceImplTest {
+public class ApiConnectionResultServiceImplTest {
 
     private static final String API_RESULT_HOST = System.getProperty("API_RESULT_HOST","localhost");
     private static final Integer API_RESULT_PORT =
@@ -25,20 +26,25 @@ public class ApiConnectionServiceImplTest {
     private static final String PROTOCOL = "http";
     private static final String RESULT_FILE = "/api/v1/percentage-votes";
 
-    private ApiConnectionService apiConnectionService;
+
 
     @Mock
     private URLConnectionFactory urlConnectionFactoryMock;
     @Mock
     private IOUtilsTools ioUtilsToolsMock;
+    @InjectMocks
+    private ApiConnectionResultServiceImpl apiConnectionService;
+
+
     @Mock
     private HttpURLConnection httpURLConnectionMock;
     @Mock
     private InputStream inputStreamMock;
 
+
+
     @Before
-    public void setUp() {
-        apiConnectionService = new ApiConnectionServiceImpl();
+    public void setUp(){
     }
 
     @Test
@@ -52,7 +58,7 @@ public class ApiConnectionServiceImplTest {
         when(ioUtilsToolsMock.inputStreamToString(inputStreamMock)).thenReturn(jsonResult);
 
         // WHEN
-        Result result = apiConnectionService.getResult(urlConnectionFactoryMock, ioUtilsToolsMock);
+        Result result = apiConnectionService.getResult();
         // THEN
         Assert.assertNotNull(result);
     }
@@ -68,7 +74,7 @@ public class ApiConnectionServiceImplTest {
         when(ioUtilsToolsMock.inputStreamToString(inputStreamMock)).thenReturn(jsonResult);
 
         // WHEN
-        Result result = apiConnectionService.getResult(urlConnectionFactoryMock, ioUtilsToolsMock);
+        Result result = apiConnectionService.getResult();
         // THEN
         verify(urlConnectionFactoryMock).getURLConnection(PROTOCOL,API_RESULT_HOST,API_RESULT_PORT,RESULT_FILE);
     }
@@ -84,7 +90,7 @@ public class ApiConnectionServiceImplTest {
         when(ioUtilsToolsMock.inputStreamToString(inputStreamMock)).thenReturn(jsonResult);
 
         // WHEN
-        Result result = apiConnectionService.getResult(urlConnectionFactoryMock, ioUtilsToolsMock);
+        Result result = apiConnectionService.getResult();
         // THEN
         verify(httpURLConnectionMock).setRequestMethod("GET");
     }
@@ -100,7 +106,7 @@ public class ApiConnectionServiceImplTest {
         when(ioUtilsToolsMock.inputStreamToString(inputStreamMock)).thenReturn(jsonResult);
 
         // WHEN
-        Result result = apiConnectionService.getResult(urlConnectionFactoryMock, ioUtilsToolsMock);
+        Result result = apiConnectionService.getResult();
         // THEN
         verify(httpURLConnectionMock).getInputStream();
     }
@@ -116,7 +122,7 @@ public class ApiConnectionServiceImplTest {
         when(ioUtilsToolsMock.inputStreamToString(inputStreamMock)).thenReturn(jsonResult);
 
         // WHEN
-        Result result = apiConnectionService.getResult(urlConnectionFactoryMock,ioUtilsToolsMock);
+        Result result = apiConnectionService.getResult();
         // THEN
         verify(ioUtilsToolsMock).inputStreamToString(inputStreamMock);
     }
@@ -132,7 +138,7 @@ public class ApiConnectionServiceImplTest {
         when(ioUtilsToolsMock.inputStreamToString(inputStreamMock)).thenReturn(jsonResult);
 
         // WHEN
-        Result result = apiConnectionService.getResult(urlConnectionFactoryMock,ioUtilsToolsMock);
+        Result result = apiConnectionService.getResult();
         // THEN
         Assert.assertEquals(expectedResult.getCat(),result.getCat());
         Assert.assertEquals(expectedResult.getDog(),result.getDog());
@@ -149,7 +155,7 @@ public class ApiConnectionServiceImplTest {
         when(ioUtilsToolsMock.inputStreamToString(inputStreamMock)).thenReturn(jsonResult);
 
         // WHEN
-        Result result = apiConnectionService.getResult(urlConnectionFactoryMock,ioUtilsToolsMock);
+        Result result = apiConnectionService.getResult();
         // THEN
         verify(inputStreamMock).close();
     }

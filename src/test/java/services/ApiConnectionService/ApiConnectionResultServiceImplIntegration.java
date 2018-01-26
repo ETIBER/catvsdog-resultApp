@@ -1,8 +1,6 @@
 package services.ApiConnectionService;
 
 
-import Tools.IOUtilsTools;
-import factories.URLConnectionFactory;
 import model.result.Result;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +10,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.io.IOException;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ApiConnectionServiceImplIntegration {
+public class ApiConnectionResultServiceImplIntegration {
     private static final String API_RESULT_HOST = System.getProperty("API_RESULT_HOST","localhost");
     private static final Integer API_RESULT_PORT =
             Integer.getInteger(System.getProperty("API_RESULT_PORT","4000"),4000);
@@ -22,9 +20,9 @@ public class ApiConnectionServiceImplIntegration {
     @Test
     public void getResultReturnAResult() throws IOException {
         //GIVEN
-        ApiConnectionService apiConnectionService = new ApiConnectionServiceImpl();
+        ApiConnectionResultService apiConnectionResultService = new ApiConnectionResultServiceImpl();
         //WHEN
-        Result result = apiConnectionService.getResult(new URLConnectionFactory(),new IOUtilsTools());
+        Result result = apiConnectionResultService.getResult();
         //THEN
         Assert.assertNotNull(result);
     }

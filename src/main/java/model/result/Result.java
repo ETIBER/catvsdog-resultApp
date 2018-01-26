@@ -33,6 +33,10 @@ public class Result {
         this.dog = dog;
     }
 
+    public String toJSON(){
+        return "{\"cat\":"+cat+" ,\"dog\":"+dog+"}";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
