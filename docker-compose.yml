@@ -1,0 +1,15 @@
+version: '2'
+services:
+  result-api:
+    build: .
+    ports:
+      - "9000:9000"
+    links:
+      - db:db
+  db:
+     image: kiasaki/alpine-postgres:9.5
+     ports:
+       - 5432:5432
+     environment:
+       - POSTGRES_USER=admin
+       - POSTGRES_PASSWORD=admin
