@@ -6,6 +6,8 @@ services:
       - "9000:80"
     environment:
       - PG_HOST
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
       - API_RESULT_HOST
       - API_RESULT_PORT
 
