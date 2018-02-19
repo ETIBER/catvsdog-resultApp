@@ -22,7 +22,7 @@ public class ApiConnectionResultServiceImplTest {
 
     private static final String API_RESULT_HOST = System.getProperty("API_RESULT_HOST","localhost");
     private static final Integer API_RESULT_PORT =
-            Integer.getInteger(System.getProperty("API_RESULT_PORT","4000"),4000);
+            Integer.getInteger(System.getProperty("API_RESULT_PORT","5001"),5001);
     private static final String PROTOCOL = "http";
     private static final String RESULT_FILE = "/api/v1/percentage-votes";
 
@@ -48,7 +48,7 @@ public class ApiConnectionResultServiceImplTest {
     }
 
     @Test
-    public void getResultReturnNotNullResult() throws IOException {
+    public void getResultReturnNotNullResultIfNoException() throws IOException {
         // GIVEN
         String jsonResult = "{\"cat\":1 ,\"dog\":0}";
         Result expectedResult = new Result(jsonResult);
@@ -158,6 +158,19 @@ public class ApiConnectionResultServiceImplTest {
         Result result = apiConnectionService.getResult();
         // THEN
         verify(inputStreamMock).close();
+    }
+
+    @Test
+    public void getResultReturnNullIfException() throws IOException {
+        // GIVEN
+        String jsonResult = "{\"cat\":1 ,\"dog\":0}";
+        when(urlConnectionFactoryMock.getURLConnection(PROTOCOL,API_RESULT_HOST,API_RESULT_PORT,RESULT_FILE))
+                .thenReturn(httpURLConnectionMock);
+        when(httpURLConnectionMock.getInputStream()).thenThrow(new IOException());
+        // WHEN
+        Result result = apiConnectionService.getResult();
+        // THEN
+        Assert.assertNull(result);
     }
 
 }

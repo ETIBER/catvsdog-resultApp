@@ -25,3 +25,13 @@ hs_err_pid*
 # intelidji file
 
 .idea/*
+
+#env
+*.env
+
+#Build
+target/catvsdog-resultApp-1.0-SNAPSHOT-jar-with-dependencies/
+target/catvsdog-resultApp-1.0-SNAPSHOT.jar
+target/maven-archiver/
+target/maven-status/
+target/surefire-reports/

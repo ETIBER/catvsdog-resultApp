@@ -19,8 +19,9 @@ import  static  org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ServerTest {
 
-    private static Integer API_SERVER_PORT =
-            Integer.getInteger(System.getProperty("API_SERVER_PORT","9000"),9000);
+    private static final Integer API_SERVER_PORT =
+            Integer.getInteger(System.getenv("API_SERVER_PORT") != null
+                    ? System.getenv("API_SERVER_PORT") : "80",80);
 
     @Mock
     private HttpServerFactory httpServerFactory;

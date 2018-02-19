@@ -9,8 +9,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class Server {
-    private static Integer API_SERVER_PORT =
-            Integer.getInteger(System.getProperty("API_SERVER_PORT","9000"),9000);
+    private static final Integer API_SERVER_PORT =
+            Integer.getInteger(System.getenv("API_SERVER_PORT") != null
+                    ? System.getenv("API_SERVER_PORT") : "80",80);
 
     private HttpServerFactory httpServerFactory;
     private RouteResult routeResult;
@@ -25,5 +26,6 @@ public class Server {
         HttpServer httpServer = httpServerFactory.createHttpServer(API_SERVER_PORT);
         routeResult.createRouteResult(httpServer,new ResultByDateHandler());
         httpServer.start();
+        System.out.println("Server listing in: "+API_SERVER_PORT);
     }
 }

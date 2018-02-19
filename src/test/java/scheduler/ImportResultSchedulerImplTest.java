@@ -46,7 +46,7 @@ public class ImportResultSchedulerImplTest {
 
         // Then
         verify(scheduledExecutorServiceMock)
-                .scheduleAtFixedRate(eq(importResultSchedulerImpl),eq(1L),eq(1L),eq(TimeUnit.MINUTES));
+                .scheduleAtFixedRate(eq(importResultSchedulerImpl),eq(1L),eq(1L),eq(TimeUnit.HOURS));
     }
 
     @Test

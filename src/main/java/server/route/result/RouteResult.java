@@ -11,5 +11,6 @@ public class RouteResult {
 
     public void createRouteResult(HttpServer httpServer, HttpHandler resultByDateHandler) {
         httpServer.createContext(BASE + VERSION + RESULT_SERVICE, resultByDateHandler);
+        System.out.println("Route created on " +BASE + VERSION + RESULT_SERVICE);
     }
 }

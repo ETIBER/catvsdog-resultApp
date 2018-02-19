@@ -19,11 +19,12 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class ResultDAOTest {
 
-    private final static String INSERT_TABLE_SQL = "INSERT INTO result (cat,dog,createTime)\n VALUES (?, ?, ?);";
-    private static final String SELECT_BY_CLOSEST_DATE_SQL = "SELECT * FROM result WHERE createTime <= ?" +
-            " ORDER BY createTime LIMIT 1;";
-    private static final String SELECT_BY_DATE_SQL = "SELECT * FROM result WHERE createTime BETWEEN ? AND ? " +
-            "ORDER BY createTime DESC LIMIT 1";
+    private static final String INSERT_TABLE_SQL = "INSERT INTO result (cat,dog,\"createTime\",\"createdAt\"," +
+            "\"updatedAt\")\n VALUES (?, ?, ?, ?, ?);";
+    private static final String SELECT_BY_CLOSEST_DATE_SQL = "SELECT * FROM result WHERE \"createTime\" <= ?" +
+            " ORDER BY \"createTime\" LIMIT 1;";
+    private static final String SELECT_BY_DATE_SQL = "SELECT * FROM result WHERE \"createTime\" BETWEEN ? AND ? " +
+            "ORDER BY \"createTime\" DESC LIMIT 1";
 
     @Mock
     private Connection connectionMock;
@@ -72,6 +73,8 @@ public class ResultDAOTest {
         verify(preparedStatementInsertTable).setDouble(eq(1),eq(1D));
         verify(preparedStatementInsertTable).setDouble(eq(2),eq(0D));
         verify(preparedStatementInsertTable).setTimestamp(eq(3),eq(Timestamp.valueOf(result.getCreateTime())));
+        verify(preparedStatementInsertTable).setTimestamp(eq(4),any());
+        verify(preparedStatementInsertTable).setTimestamp(eq(5),any());
     }
 
     @Test
