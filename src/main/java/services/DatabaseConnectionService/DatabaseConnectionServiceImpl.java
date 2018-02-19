@@ -6,12 +6,12 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConnectionServiceImpl implements DatabaseConnectionService {
-    private static final String PG_HOST = System.getenv("PG_HOST") != null
-            ? System.getenv("PG_HOST"):"localhost/result";
-    private static final String PG_USER = System.getenv("PG_USER") != null
-            ?System.getenv("PG_USER") : "admin";
-    private static final String PG_PASSWORD = System.getenv("PG_PASSWORD") != null
-            ?System.getenv("PG_PASSWORD"):"admin";
+    private static final String PG_HOST = System.getenv("POSTGRES_HOST") != null
+            ? System.getenv("POSTGRES_HOST"):"localhost/result";
+    private static final String PG_USER = System.getenv("POSTGRES_USER") != null
+            ?System.getenv("POSTGRES_USER") : "admin";
+    private static final String PG_PASSWORD = System.getenv("POSTGRES_PASSWORD") != null
+            ?System.getenv("POSTGRES_PASSWORD"):"admin";
 
     private Connection connection;
 

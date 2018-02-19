@@ -27,7 +27,7 @@ hs_err_pid*
 .idea/*
 
 #env
-*.env
+.env
 
 #Build
 target/catvsdog-resultApp-1.0-SNAPSHOT-jar-with-dependencies/
