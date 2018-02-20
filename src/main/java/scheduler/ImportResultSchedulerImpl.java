@@ -34,6 +34,6 @@ public class ImportResultSchedulerImpl implements ImportResultScheduler {
 
     @Override
     public void execute() {
-        scheduler.scheduleAtFixedRate(this, 1, 1, TimeUnit.HOURS);
+        scheduler.scheduleAtFixedRate(this, 0, 1, TimeUnit.HOURS);
     }
 }
