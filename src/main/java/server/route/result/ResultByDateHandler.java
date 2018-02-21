@@ -19,7 +19,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class ResultByDateHandler implements HttpHandler {
+    private static final Logger logger = LogManager.getLogger(ResultByDateHandler.class);
     private ResultService resultService;
 
     public ResultByDateHandler() throws SQLException {
@@ -29,7 +33,8 @@ public class ResultByDateHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         URI uri = exchange.getRequestURI();
-        System.out.println("connectionTo: "+uri.toString());
+        String client = exchange.toString();
+        logger.info("client: "+client+ "access to: "+uri.toString());
         Result result;
         String resultAnswerString = "";
         Integer rCode = 400;

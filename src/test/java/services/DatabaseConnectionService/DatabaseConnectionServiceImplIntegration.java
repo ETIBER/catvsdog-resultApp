@@ -15,11 +15,7 @@ public class DatabaseConnectionServiceImplIntegration {
         // GIVEN
         // WHEN
         DatabaseConnectionServiceImpl databaseConnectionServiceImpl = null;
-        try {
-            databaseConnectionServiceImpl = new DatabaseConnectionServiceImpl();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        databaseConnectionServiceImpl = new DatabaseConnectionServiceImpl();
         Connection connection = databaseConnectionServiceImpl.getConnection();
         // THEN
         Assert.assertTrue(connection != null);

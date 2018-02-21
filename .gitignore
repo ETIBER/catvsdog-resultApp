@@ -1,5 +1,5 @@
 # Compiled class file
-# *.class
+*.class
 
 # Log file
 *.log
@@ -35,3 +35,7 @@ target/catvsdog-resultApp-1.0-SNAPSHOT.jar
 target/maven-archiver/
 target/maven-status/
 target/surefire-reports/
+
+#log
+*.log
+logfile.json
