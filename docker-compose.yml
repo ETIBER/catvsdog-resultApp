@@ -10,6 +10,7 @@ services:
       - POSTGRES_PASSWORD
       - API_RESULT_HOST
       - API_RESULT_PORT
+      - REDIS_HOST
     volumes:
       - ./:/usr/src
 
