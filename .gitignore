@@ -37,5 +37,6 @@ target/maven-status/
 target/surefire-reports/
 
 #log
-*.log
-logfile.json
+target/log-test.json
+target/log.json
+
