@@ -14,7 +14,7 @@ import redis.clients.jedis.Jedis;
 @Plugin(name="RedisAppender", category="Core", elementType="appender", printObject=true)
 final class RedisAppenderImpl extends AbstractAppender {
 
-    private final String REDIS_HOST = System.getenv("REDIS_HOST") != null
+    private static final String REDIS_HOST = System.getenv("REDIS_HOST") != null
             ? System.getenv("REDIS_HOST") : "localhost";
 
     private final ReadWriteLock rwLock = new ReentrantReadWriteLock();
@@ -24,6 +24,7 @@ final class RedisAppenderImpl extends AbstractAppender {
     protected RedisAppenderImpl(String name, Filter filter,
                                    Layout<? extends Serializable> layout, final boolean ignoreExceptions) {
         super(name, filter, layout, ignoreExceptions);
+        System.out.println("Connect to server log: "+REDIS_HOST);
         jedis = new Jedis(REDIS_HOST);
     }
 

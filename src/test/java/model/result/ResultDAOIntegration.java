@@ -16,7 +16,7 @@ public class ResultDAOIntegration {
 
     @Mock
     private Connection connection;
-    @InjectMocks
+    @Mock
     private DatabaseConnectionServiceImpl databaseConnectionServiceImpl;
 
     @Before

@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 
 public class ApiConnectionResultServiceImpl implements ApiConnectionResultService {
 
-    private static final Logger logger = LogManager.getLogger(" ApiConnectionResultServiceImpl");
+    private static final Logger logger = LogManager.getLogger(ApiConnectionResultServiceImpl.class.getName());
 
     private static final String API_RESULT_HOST = (System.getenv("API_RESULT_HOST") != null)
             ? System.getenv("API_RESULT_HOST") : "localhost";

@@ -26,8 +26,8 @@ public class ResultByDateHandler implements HttpHandler {
     private static final Logger logger = LogManager.getLogger(ResultByDateHandler.class);
     private ResultService resultService;
 
-    public ResultByDateHandler() throws SQLException {
-        resultService = new ResultServiceImpl();
+    public ResultByDateHandler(ResultService resultService) throws SQLException {
+        this.resultService = resultService;
     }
 
     @Override

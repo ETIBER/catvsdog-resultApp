@@ -31,7 +31,7 @@ public class ResultByDateHandlerTest {
     HttpExchange httpExchangeMock;
     @Mock
     ResultService resultServiceMock;
-    @InjectMocks
+
     ResultByDateHandler resultByDateHandler;
 
     @Mock
@@ -44,6 +44,8 @@ public class ResultByDateHandlerTest {
 
     @Before
     public void SetUp() throws SQLException {
+        resultByDateHandler = new ResultByDateHandler(resultServiceMock);
+
     }
 
 

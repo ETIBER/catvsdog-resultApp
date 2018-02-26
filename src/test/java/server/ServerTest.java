@@ -24,7 +24,7 @@ public class ServerTest {
                     ? System.getenv("API_SERVER_PORT") : "80",80);
 
     @Mock
-    private HttpServerFactory httpServerFactory;
+    private HttpServerFactory httpServerFactoryMock;
     @Mock
     private HttpServer httpServerMock;
     @Mock
@@ -36,23 +36,24 @@ public class ServerTest {
 
     @Before
     public  void setUp() {
+       server = new Server(httpServerFactoryMock, routeResultMock);
     }
 
     @Test
     public void createServerCreateTheServer() throws IOException, SQLException {
         // GIVEN
-        when(httpServerFactory.createHttpServer(API_SERVER_PORT)).thenReturn(httpServerMock);
+        when(httpServerFactoryMock.createHttpServer(API_SERVER_PORT)).thenReturn(httpServerMock);
         // WHEN
         server.createServer();
         // THEN
-        verify(httpServerFactory).createHttpServer(API_SERVER_PORT);
+        verify(httpServerFactoryMock).createHttpServer(API_SERVER_PORT);
 
     }
 
     @Test
     public void createServerInitializeRoute() throws IOException, SQLException {
         // GIVEN
-        when(httpServerFactory.createHttpServer(API_SERVER_PORT)).thenReturn(httpServerMock);
+        when(httpServerFactoryMock.createHttpServer(API_SERVER_PORT)).thenReturn(httpServerMock);
         // WHEN
         server.createServer();
         // THEN
@@ -63,7 +64,7 @@ public class ServerTest {
     @Test
     public void createServerStartTheServer() throws IOException, SQLException {
         // GIVEN
-        when(httpServerFactory.createHttpServer(API_SERVER_PORT)).thenReturn(httpServerMock);
+        when(httpServerFactoryMock.createHttpServer(API_SERVER_PORT)).thenReturn(httpServerMock);
         // WHEN
         server.createServer();
         // THEN

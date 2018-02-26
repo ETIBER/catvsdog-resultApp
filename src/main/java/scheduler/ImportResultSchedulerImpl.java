@@ -17,10 +17,11 @@ public class ImportResultSchedulerImpl implements ImportResultScheduler {
     private ApiConnectionResultService apiConnectionResultService;
     private ResultService resultService;
 
-    public ImportResultSchedulerImpl() throws SQLException {
-        this.scheduler = Executors.newScheduledThreadPool(1);
-        this.apiConnectionResultService = new ApiConnectionResultServiceImpl();
-        this.resultService = new ResultServiceImpl();
+    public ImportResultSchedulerImpl(ApiConnectionResultService apiConnectionResultService,
+                                     ResultService resultService,ScheduledExecutorService scheduler) throws SQLException {
+        this.scheduler = scheduler;
+        this.apiConnectionResultService = apiConnectionResultService;
+        this.resultService = resultService;
     }
     @Override
     public void run() {

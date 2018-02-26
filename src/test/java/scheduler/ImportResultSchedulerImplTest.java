@@ -29,12 +29,13 @@ public class ImportResultSchedulerImplTest {
     private ApiConnectionResultServiceImpl apiConnectionServiceImplMock;
     @Mock
     private ResultService resultServiceMock;
-
     @InjectMocks
     private ImportResultSchedulerImpl importResultSchedulerImpl;
 
     @Before
-    public void SetUp() {
+    public void SetUp() throws SQLException {
+       importResultSchedulerImpl = new ImportResultSchedulerImpl(apiConnectionServiceImplMock,resultServiceMock,
+               scheduledExecutorServiceMock);
     }
 
     @Test

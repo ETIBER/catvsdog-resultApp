@@ -16,13 +16,11 @@
         <Console name="STDOUT" target="SYSTEM_OUT">
             <PatternLayout pattern="%m%n"/>
         </Console>
-        <RedisAppender name="redisAppender" >
-            <JSONLayout compact="false" complete="true" eventEol="true"/>
-        </RedisAppender>
     </Appenders>
     <Loggers>
         <Root level="trace">
             <AppenderRef ref="file" level="DEBUG"/>
+            <AppenderRef ref="STDOUT" level="DEBUG"/>
         </Root>
     </Loggers>
 </Configuration>

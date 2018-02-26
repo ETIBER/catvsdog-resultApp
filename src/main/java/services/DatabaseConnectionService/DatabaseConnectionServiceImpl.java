@@ -35,23 +35,28 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
         properties.setProperty("user", PG_USER);
         properties.setProperty("password", PG_PASSWORD);
 
-        return this.connect(url,properties);
+        return this.connect(url,properties,1);
     }
 
-    private Connection connect(String url, Properties properties) {
+    private Connection connect(String url, Properties properties, int times) {
 
         Connection connection = null;
         try {
-            logger.info("Try to connect to " + url + " with properties :" + PG_USER + " " + PG_PASSWORD);
+            logger.info("Try number "+times+" to connect to " + url + " with properties :" + PG_USER + " " + PG_PASSWORD);
             connection = databaseConnectionDriverService.getConnection(url, this.properties);
             logger.info("Database connection successful");
         } catch (SQLException e) {
             logger.error("error during database connection, retry");
             try {
-                synchronized (this){
-                    wait(1000);
-                    return this.connect(url,properties);
+                if(times<10){
+                    synchronized (this){
+                        wait(1000);
+                        return this.connect(url,properties,times + 1);
+                    }
+                } else {
+                    logger.fatal("database not available");
                 }
+
             } catch (InterruptedException e1) {
                 e1.printStackTrace();
             }
