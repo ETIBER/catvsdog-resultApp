@@ -1,5 +1,7 @@
 package model.result;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import services.DatabaseConnectionService.DatabaseConnectionService;
 import services.DatabaseConnectionService.DatabaseConnectionServiceImpl;
 
@@ -10,6 +12,8 @@ import java.time.LocalTime;
 import java.util.Date;
 
 public class ResultDAOImpl implements ResultDAO {
+
+    private static final Logger logger = LogManager.getLogger("ResultDAOImpl");
 
     private static final String INSERT_TABLE_SQL = "INSERT INTO result (cat,dog,\"createTime\",\"createdAt\"," +
             "\"updatedAt\")\n VALUES (?, ?, ?, ?, ?);";
@@ -34,6 +38,7 @@ public class ResultDAOImpl implements ResultDAO {
         insertPreparedStatement.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
         insertPreparedStatement.setTimestamp(5, Timestamp.valueOf(LocalDateTime.now()));
         insertPreparedStatement.execute();
+        logStatement(insertPreparedStatement);
 
     }
 
@@ -41,6 +46,7 @@ public class ResultDAOImpl implements ResultDAO {
         PreparedStatement preparedStatement = this.connection.prepareStatement(SELECT_BY_CLOSEST_DATE_SQL);
         preparedStatement.setTimestamp(1, Timestamp.valueOf(expectedDateTime));
         ResultSet resultSet = preparedStatement.executeQuery();
+        logStatement(preparedStatement);
         return TransformResultSetToResult(resultSet);
     }
 
@@ -52,10 +58,14 @@ public class ResultDAOImpl implements ResultDAO {
         LocalDateTime endOfTheDay = expectedDate.atTime(LocalTime.MAX);
         preparedStatement.setTimestamp(1, Timestamp.valueOf(startOfTheDay));
         preparedStatement.setTimestamp(2, Timestamp.valueOf(endOfTheDay));
-        System.out.println("Execute query: "+preparedStatement.toString());
         ResultSet resultSet = preparedStatement.executeQuery();
+        logStatement(preparedStatement);
         return TransformResultSetToResult(resultSet);
 
+    }
+
+    private void logStatement (PreparedStatement preparedStatement){
+        logger.info("Execute query: "+ preparedStatement.toString());
     }
 
     private Result TransformResultSetToResult(ResultSet resultSet) throws SQLException {

@@ -14,9 +14,9 @@ public class DatabaseConnectionServiceImpl implements DatabaseConnectionService 
     private static final String PG_HOST = System.getenv("POSTGRES_HOST") != null
             ? System.getenv("POSTGRES_HOST") : "localhost/result";
     private static final String PG_USER = System.getenv("POSTGRES_USER") != null
-            ? System.getenv("POSTGRES_USER") : "admin";
+            ? System.getenv("POSTGRES_USER") : "postgres";
     private static final String PG_PASSWORD = System.getenv("POSTGRES_PASSWORD") != null
-            ? System.getenv("POSTGRES_PASSWORD") : "admin";
+            ? System.getenv("POSTGRES_PASSWORD") : "postgres";
 
     private DatabaseConnectionDriverService databaseConnectionDriverService;
     private Properties properties;

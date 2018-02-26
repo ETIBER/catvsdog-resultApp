@@ -10,18 +10,21 @@ services:
       - POSTGRES_PASSWORD
       - API_RESULT_HOST
       - API_RESULT_PORT
+    volumes:
+      - ./:/usr/src
 
 
   db:
-      image: postgres:10-alpine
+      build: ./postgres
       ports:
-        - 5433:5432
+        - "5433:5432"
       environment:
         - POSTGRES_USER
         - POSTGRES_PASSWORD
         - POSTGRES_DB
       volumes:
         - db-data2:/var/lib/postgresql
+        - ./postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
 
 
 volumes:
