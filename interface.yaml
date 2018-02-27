@@ -1,0 +1,86 @@
+---
+version: '0.1'
+encoding: UTF-8
+name: Result By Date API
+modelVersion: '1.0'
+interfaces:
+  - name: postgres database
+    direction:
+      - in
+      - out
+    description: database for data stockage
+    type: database
+      database: result
+      port: 5434
+      dialect: postgres
+
+    data:
+      objects:
+        - name: result
+          description: A vote result on a given date
+          definition:
+            -name: cat
+              type: integer
+
+            -name: dog
+              type: integer
+
+            -name: createDate
+              type: timestamp
+
+  - name: result api
+    direction:
+      - in
+    description: an API who expose the current result percentage
+    apiEndpoint: /api
+    type: http-api
+      port: 5001
+
+    data:
+      objects:
+        - name: result
+          description: A vote result
+          version: /v1
+          endpoint: percentage-votes
+          operations:
+            - name: GET
+              definition: get the actual result
+          definition:
+            -name: cat
+              type: integer
+
+            -name: dog
+              type: integer
+
+  - name: result date api
+    direction:
+      - out
+    description: an API who expose results in percentage per date
+    apiEndpoint: /api
+    type: http-api
+      host: localhost
+      port: 9OOO
+
+    data:
+      objects:
+        - name: result
+          description: A vote result
+          version: /v1
+          endpoint: vote-percentages
+          operations:
+            - name: GET
+              definition: get the actual result
+          definition:
+            -name: cat
+              type: integer
+
+            -name: dog
+              type: integer
+
+            -name: createDate
+              type: timestamp
+
+
+
+
+
