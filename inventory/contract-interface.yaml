@@ -1,12 +1,13 @@
 ---
-version: '0.1'
+version: '0.1' #qsdf
 encoding: UTF-8
 name: Result By Date API
+fqn: http://web1:5001
 modelVersion: '1.0'
 interfaces:
-  - name: postgres database
+  - name: postgres://toto:5432 database
+    fqn: postgres://toto:5432
     direction:
-      - in
       - out
     description: database for data stockage
     type: database
@@ -79,6 +80,10 @@ interfaces:
 
             -name: createDate
               type: timestamp
+
+
+
+
 
 
 

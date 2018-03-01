@@ -27,8 +27,10 @@ services:
         - db-data2:/var/lib/postgresql
         - ./postgres/postgresql.conf:/var/lib/postgresql/data/postgresql.conf
 
-  interface:
-      build: ./interface
+  inventory-service:
+      image: docker.io/etbe/inventory
+      volumes:
+        - inventory/contract-interface.yaml:contract-interface.yaml
       ports:
         - "1350:1350"
 
